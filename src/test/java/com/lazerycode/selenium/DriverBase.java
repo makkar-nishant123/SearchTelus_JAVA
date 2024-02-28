@@ -29,7 +29,7 @@ public class DriverBase {
         ChromeOptions options = new ChromeOptions();
         // binary path
         options.addArguments("--remote-allow-origins=*");
-         driver = new ChromeDriver();
+         driver = new ChromeDriver(options);
     }
 
 
