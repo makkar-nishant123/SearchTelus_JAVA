@@ -11,7 +11,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
-
+import org.openqa.selenium.chrome.ChromeOptions;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -25,6 +25,10 @@ public class DriverBase {
     @BeforeSuite(alwaysRun = true)
     public static void instantiateDriverObject() {
         System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +  "\\chromedriver.exe");
+         // create chrome option
+        ChromeOptions options = new ChromeOptions();
+        // binary path
+        options.addArguments("--remote-allow-origins=*");
          driver = new ChromeDriver();
     }
 
