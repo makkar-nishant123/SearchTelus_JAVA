@@ -24,6 +24,7 @@ public class DriverBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void instantiateDriverObject() {
+        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +  "\\chromedriver.exe");
          driver = new ChromeDriver();
     }
 
