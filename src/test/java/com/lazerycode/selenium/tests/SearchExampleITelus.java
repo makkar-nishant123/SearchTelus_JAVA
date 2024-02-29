@@ -50,11 +50,15 @@ public class SearchExampleITelus extends DriverBase {
 
             //Setup Implicit Wait time.
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().window().setSize(new Dimension(1538, 916));
-
+            System.out.println("*************************************");
+            System.out.println(driver.manage().window().getSize());
+            System.out.println("*************************************");
 
             // First of all, let's navigate to the Telus Home Page.
-            //driver.manage().window().maximize();
+            driver.manage().window().maximize();
+            System.out.println("*************************************");
+            System.out.println(driver.manage().window().getSize());
+            System.out.println("*************************************");
             driver.get("http://www.telus.com");
 
             // Alternatively the same thing can be done like this
