@@ -50,7 +50,7 @@ public class SearchExampleITelus extends DriverBase {
 
             //Setup Implicit Wait time.
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-            driver.manage().window().setSize(new Dimension(1538, 916))
+            driver.manage().window().setSize(new Dimension(1538, 916));
 
 
             // First of all, let's navigate to the Telus Home Page.
