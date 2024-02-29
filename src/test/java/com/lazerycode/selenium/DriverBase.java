@@ -30,7 +30,7 @@ public class DriverBase {
         ChromeOptions options = new ChromeOptions();
         // binary path
         options.addArguments("--remote-allow-origins=*");
-        options.add_argument("--window-size=1920,1080")
+        options.add_argument("--window-size=1920,1080");
        // options.setBinary("//home//runner//work//GitHUBPOC//GitHUBPOC//chrome-linux64//chrome");
       // options.setBinary(System.getProperty("user.dir") +  "\\chrome-win64\\chrome.exe");
         
