@@ -30,6 +30,7 @@ public class DriverBase {
         // binary path
         options.addArguments("--remote-allow-origins=*");
        // options.setBinary("//home//runner//work//GitHUBPOC//GitHUBPOC//chrome-linux64//chrome");
+       // options.setBinary(System.getProperty("user.dir") +  "\\chrome-wim64chrome.exe");
         
          driver = new ChromeDriver(options);
     }
