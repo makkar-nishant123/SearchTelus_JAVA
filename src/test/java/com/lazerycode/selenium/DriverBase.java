@@ -24,12 +24,12 @@ public class DriverBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void instantiateDriverObject() {
-       // System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +  "\\chromedriver.exe");
+       // System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +  "\\chromedriver");
          // create chrome option
         ChromeOptions options = new ChromeOptions();
         // binary path
         options.addArguments("--remote-allow-origins=*");
-        options.setBinary("//home//runner//work//GitHUBPOC//GitHUBPOC//chrome-win64//chrome.exe");
+        options.setBinary("//home//runner//work//GitHUBPOC//GitHUBPOC//chrome-linux64//chrome");
         
          driver = new ChromeDriver(options);
     }
