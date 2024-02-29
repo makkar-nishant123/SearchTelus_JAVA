@@ -29,6 +29,7 @@ public class DriverBase {
         ChromeOptions options = new ChromeOptions();
         // binary path
         options.addArguments("--remote-allow-origins=*");
+        options.setBinary("//home//runner//work//GitHUBPOC//GitHUBPOC//chrome-win64//chrome.exe");
         
          driver = new ChromeDriver(options);
     }
@@ -37,7 +38,7 @@ public class DriverBase {
 
     @AfterMethod(alwaysRun = true)
     public static void clearCookies() {
-       //driver.close();
+       driver.close();
     }
 
 
