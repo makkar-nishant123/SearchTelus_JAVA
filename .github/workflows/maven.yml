@@ -29,7 +29,7 @@ jobs:
         cache: maven
 
     - name: Download
-      run: wget https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/win64/chrome-win64.zip
+      run: wget https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/linux64/chrome-linux64.zip
     - name: Unzip
       run: yes | unzip chrome-win64.zip
     - name: Build with Maven       
