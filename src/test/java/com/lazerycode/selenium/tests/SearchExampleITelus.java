@@ -52,7 +52,7 @@ public class SearchExampleITelus extends DriverBase {
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
             // First of all, let's navigate to the Telus Home Page.
-            driver.manage().window().maximize();
+            //driver.manage().window().maximize();
             driver.get("http://www.telus.com");
 
             // Alternatively the same thing can be done like this
