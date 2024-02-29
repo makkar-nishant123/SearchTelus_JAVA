@@ -17,7 +17,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -31,6 +31,8 @@ jobs:
       run: pwd
     - name: Download
       run: wget https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/win64/chrome-win64.zip
+    - name: Unzip
+      run: unzip chrome-win64.zip
 
 
     - name: 'Upload Artifact'
