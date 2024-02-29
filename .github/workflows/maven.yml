@@ -27,9 +27,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-            
+    - name: Build with Maven       
       run: pwd
+    - name: Download
+      run: wget https://storage.googleapis.com/chrome-for-testing-public/122.0.6261.94/win64/chrome-win64.zip
+
 
     - name: 'Upload Artifact'
       uses: actions/upload-artifact@v4
