@@ -24,7 +24,7 @@ public class DriverBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void instantiateDriverObject() {
-        System.setProperty("webdriver.chrome.driver",System.getProperty("user.dir") +  "//chromedriver");
+        System.setProperty("WebDriver.Chrome.driver",System.getProperty("user.dir") +  "//chromedriver");
          // create chrome option
         ChromeOptions options = new ChromeOptions();
         // binary path
