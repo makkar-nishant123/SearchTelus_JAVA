@@ -34,7 +34,7 @@ jobs:
     - name: Unzip
       run: yes | unzip chrome-win64.zip
     - name: pwd
-      run: pwd
+      run: ls -alR /home/runner/work/GitHUBPOC/GitHUBPOC/chrome-win64
 
 
     - name: 'Upload Artifact'
