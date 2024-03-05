@@ -1,69 +1,61 @@
-package com.lazerycode.selenium.page_objects;
+package com.lazerycode.selenium.tests;
 
-import org.openqa.selenium.WebDriver;
+import com.lazerycode.selenium.DriverBase;
+import com.lazerycode.selenium.page_objects.TelusPage;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.testng.Assert;
+import org.testng.annotations.Test;
 
 import java.util.List;
+import java.time.Duration;
 
-public class TelusPage {
+public class SearchExampleITelus extends DriverBase {
 
-    private WebDriver driver;
 
-    @FindBy(xpath = ".//*[@aria-label=\"Navigation Menu\"]")
-    private WebElement navigationMenu;
+    @Test
+    public void googleCheeseExample() throws Exception {
 
-    @FindBy(id = "close-cookies-notice-banner")
-    private WebElement banner;
+        String searchPhrase = "Internet";
 
-    @FindBy(xpath = "(.//*[@data-test='searchResultItem']/a)[8]")
-    private WebElement searchDropdownResult;
+        //Setup Implicit Wait time.
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
 
-    @FindBy(xpath = ".//*[contains(@class, \"styles__ListItem-sc\")]/a")
-    private WebElement searchStringResult;
+        // First of all, let's navigate to the Telus Home Page.
+        driver.get("http://www.telus.com");
 
-    @FindBy(xpath = "(.//*[@placeholder=\"Search TELUS.com\"])[2]")
-    private WebElement searchBar;
+        // Alternatively the same thing can be done like this
+        // driver.navigate().to("http://www.telus.com");
 
-    @FindBy(xpath = ".//*[contains(@class, \"styles__ListItem-sc\")]/a")
-    private List<WebElement> searchResults;
+        //Maximize Window.
+        driver.manage().window().maximize();
+        TelusPage telusPage = new TelusPage(driver);
 
-    private String searchStringLocator = ".//*[@dir=\"auto\" and contains(text(),'xxxxxxxx')]";
+        //Accept Cookies.
+        telusPage.acceptCookies();
 
-    public TelusPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver,this);
-    }
+        //Open Navigation Menu.
+        telusPage.openNavigationMenu();
 
-    public void openNavigationMenu(){
-        navigationMenu.click();
-    }
+        //Enter your phrase in search box.
+        telusPage.searchValue(searchPhrase);
 
-    public void acceptCookies(){
-        banner.click();
-    }
+        //Select 3rd element for your search.
+        String resultString = telusPage.getSearchString();
+        telusPage.clickSearchString();
 
-    public void searchValue(String searchPhrase){
-        searchBar.sendKeys(searchPhrase);
-        try {
-            Thread.sleep(4000); //Waiting so search results appear in mean time.
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        //Make sure your search result contains your search phrase.
+        String xpathValue = ".//*[@dir=\"auto\" and contains(text(),\"" + resultString.replace(".","") + "\")]";
+        WebElement nextPage = driver.findElement(By.xpath(xpathValue));
+        Assert.assertTrue(nextPage.getText().contains(resultString));
+
+        //Make sure you get minimum of 6 results with your search and select any random search result.
+        List<WebElement> results = telusPage.getSearchResults();
+        Assert.assertTrue(results.size()>6);
+        for (WebElement ele : results){
+            Assert.assertNotNull(ele.getAttribute("href"));
         }
+        results.get((int) (Math.random() * results.size())).click();
+
     }
-
-    public String getSearchString(){
-       return searchDropdownResult.getText().replace(".","");
-           }
-
-    public void clickSearchString(){
-        searchDropdownResult.click();
-    }
-
-    public List<WebElement> getSearchResults(){
-        return searchResults;
-    }
-
-
 }
