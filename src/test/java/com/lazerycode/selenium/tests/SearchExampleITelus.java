@@ -1,63 +1,69 @@
-package com.lazerycode.selenium.tests;
+package com.lazerycode.selenium.page_objects;
 
-import com.lazerycode.selenium.DriverBase;
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 import java.util.List;
-import java.time.Duration;
 
-public class SearchExampleITelus extends DriverBase {
+public class TelusPage {
 
+    private WebDriver driver;
 
-    @Test
-    public void googleCheeseExample() throws Exception {
+    @FindBy(xpath = ".//*[@aria-label=\"Navigation Menu\"]")
+    private WebElement navigationMenu;
 
-        String searchPhrase = "Internet";
+    @FindBy(id = "close-cookies-notice-banner")
+    private WebElement banner;
 
-        //Setup Implicit Wait time.
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    @FindBy(xpath = "(.//*[@data-test='searchResultItem']/a)[8]")
+    private WebElement searchDropdownResult;
 
-        // First of all, let's navigate to the Telus Home Page.
-        driver.get("http://www.telus.com");
+    @FindBy(xpath = ".//*[contains(@class, \"styles__ListItem-sc\")]/a")
+    private WebElement searchStringResult;
 
-        // Alternatively the same thing can be done like this
-        // driver.navigate().to("http://www.telus.com");
+    @FindBy(xpath = "(.//*[@placeholder=\"Search TELUS.com\"])[2]")
+    private WebElement searchBar;
 
-        //Maximize Window.
-        driver.manage().window().maximize();
+    @FindBy(xpath = ".//*[contains(@class, \"styles__ListItem-sc\")]/a")
+    private List<WebElement> searchResults;
 
-        driver.findElement(By.xpath(".//*[@aria-label=\"Navigation Menu\"]")).click();
+    private String searchStringLocator = ".//*[@dir=\"auto\" and contains(text(),'xxxxxxxx')]";
 
-        driver.findElement(By.id("close-cookies-notice-banner")).click();
-
-        //Click on Search button.
-        driver.findElement(By.xpath("(.//*[@placeholder=\"Search TELUS.com\"])[2]")).sendKeys(searchPhrase);
-        Thread.sleep(4000);
-        WebElement resultElement= driver.findElements(By.xpath(".//*[@data-test='searchResultItem']/a")).get(7);
-        String resultString = resultElement.getText().replace(".","");
-        System.out.println("**************************************");
-        System.out.println(resultString);
-        System.out.println("**************************************");
-        //Assert.assertTrue(resultString);
-        resultElement.click();
-
-
-        String xpathValue = ".//*[@dir=\"auto\" and contains(text(),\"" + resultString.replace(".","") + "\")]";
-        WebElement nextPage = driver.findElement(By.xpath(xpathValue));
-        Assert.assertTrue(nextPage.getText().contains(resultString));
-
-        List<WebElement> classSize = driver.findElements(By.xpath(".//*[contains(@class, \"styles__ListItem-sc\")]/a"));
-        int x = classSize.size();
-        Assert.assertTrue(x>6);
-        for (WebElement ele : classSize){
-            Assert.assertNotNull(ele.getAttribute("href"));
-        }
-        classSize.get((int) (Math.random() * x)).click();
-
-        //Normally you would have some assertions to check things that you really care about
-        // assertThat(googleSearchPage.getPageTitle()).isEqualTo("Cheese - Google Search");
+    public TelusPage(WebDriver driver){
+        this.driver = driver;
+        PageFactory.initElements(driver,this);
     }
+
+    public void openNavigationMenu(){
+        navigationMenu.click();
+    }
+
+    public void acceptCookies(){
+        banner.click();
+    }
+
+    public void searchValue(String searchPhrase){
+        searchBar.sendKeys(searchPhrase);
+        try {
+            Thread.sleep(4000); //Waiting so search results appear in mean time.
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getSearchString(){
+       return searchDropdownResult.getText().replace(".","");
+           }
+
+    public void clickSearchString(){
+        searchDropdownResult.click();
+    }
+
+    public List<WebElement> getSearchResults(){
+        return searchResults;
+    }
+
+
 }
