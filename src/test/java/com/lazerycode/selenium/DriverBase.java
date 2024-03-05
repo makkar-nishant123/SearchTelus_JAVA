@@ -5,6 +5,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.core.Logger;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Listeners;
@@ -17,13 +18,13 @@ public class DriverBase {
 
     @BeforeSuite(alwaysRun = true)
     public static void instantiateDriverObject() {
-         driver = new ChromeDriver();
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--remote-allow-origins=*");
+        driver = new ChromeDriver(options);
     }
 
     @AfterSuite(alwaysRun = true)
     public static void clearCookies() {
        driver.close();
     }
-
-
 }
